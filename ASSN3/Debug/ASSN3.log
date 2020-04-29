@@ -1,0 +1,9 @@
+﻿  temp.c
+C:\Users\diehs\source\repos\CSED331_Algorithm\ASSN3\temp.c(9,18): warning C4244: '함수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\diehs\source\repos\CSED331_Algorithm\ASSN3\temp.c(11,9): warning C4477: 'printf' : 서식 문자열 '%lld'에 '__int64' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'int'입니다.
+C:\Users\diehs\source\repos\CSED331_Algorithm\ASSN3\temp.c(11,9): message : 서식 문자열에서 '%d'을(를) 사용하는 것이 좋습니다.
+C:\Users\diehs\source\repos\CSED331_Algorithm\ASSN3\temp.c(11,9): message : 서식 문자열에서 '%Id'을(를) 사용하는 것이 좋습니다.
+C:\Users\diehs\source\repos\CSED331_Algorithm\ASSN3\temp.c(11,9): message : 서식 문자열에서 '%I32d'을(를) 사용하는 것이 좋습니다.
+C:\Users\diehs\source\repos\CSED331_Algorithm\ASSN3\temp.c(7,6): warning C4101: 'result' :참조되지 않은 지역 변수입니다.
+C:\Users\diehs\source\repos\CSED331_Algorithm\ASSN3\temp.c(12): warning C4716: 'temp': 값을 반환해야 합니다.
+  ASSN3.vcxproj -> C:\Users\diehs\source\repos\CSED331_Algorithm\ASSN3\Debug\ASSN3.exe
