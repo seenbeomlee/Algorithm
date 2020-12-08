@@ -79,4 +79,48 @@ class Main {
     }
     //deque
   }
+
+  public static void DFSdeque(int[][] graph, int[] checkList, int N, int V) {
+    //deque
+    //https://opensourcedev.tistory.com/3
+    Deque<Integer> deque = new ArrayDeque<Integer>();
+    int now = V - 1;
+    deque.add(V - 1);
+
+    while(!deque.isEmpty()) {
+      now = deque.pop();
+      if(checkList[now] == 0) {
+        System.out.print(now + 1 + " ");
+        checkList[now] = 1;
+      }
+      for(int i = N - 1; i >= 0; i--) {
+        if(graph[now][i] == 1) {
+          deque.push(i);
+          graph[now][i] = 0;
+        }
+      }
+    }
+  }
+
+  public static void BFSdeque(int[][] graph, int[] checkList, int N, int V) {
+    //deque
+    //https://opensourcedev.tistory.com/3
+    Deque<Integer> deque = new ArrayDeque<Integer>();
+    int now = V - 1;
+    deque.add(V - 1);
+
+    while(!deque.isEmpty()) {
+      now = deque.poll();
+      if(checkList[now] == 0) {
+        System.out.print(now + 1 + " ");
+        checkList[now] = 1;
+      }
+      for(int i = 0; i < N; i++) {
+        if(graph[now][i] == 1) {
+          deque.add(i);
+          graph[now][i] = 0;
+        }
+      }
+    }
+  }
 }
