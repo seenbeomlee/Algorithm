@@ -15,12 +15,19 @@ import java.util.*;
 
 // 4
 
-class meeting {
+class meeting implements Comparable<meeting>{
   long start;
   long end;
   meeting(long start, long end) {
     this.start = start;
     this.end = end;
+  }
+
+  @Override
+  public int compareTo(meeting o) {
+      if(end > o.end) return -1;
+      else if(end < o.end) return 1;
+      else return start > o.start;
   }
 }
 
@@ -46,16 +53,20 @@ class Main {
 
     // end asc -> start asc
     // current < object.start 면서, end가 가장 low한 회의 선택
-    while(current <= last_start) {
-      meeting selected = null;
-      for(int i = 0; i < N; i++) {
-        if(list[i].start >= current && (selected == null || (list[i].end < selected.end))) {
-          selected = list[i];
-        }
-      }
+    // while(current <= last_start) {
+    //   meeting selected = null;
+    //   for(int i = 0; i < N; i++) {
+    //     if(list[i].start >= current && (selected == null || (list[i].end < selected.end))) {
+    //       selected = list[i];
+    //     }
+    //   }
 
-      current = selected.end;
-      res++;
+    //   current = selected.end;
+    //   res++;
+    // }
+
+    while(current <= last_start) {
+        
     }
 
     System.out.print(res);
