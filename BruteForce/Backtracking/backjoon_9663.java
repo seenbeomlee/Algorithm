@@ -13,9 +13,10 @@ class point implements Comparable<point>{
 
   @Override
   public int compareTo(point o) {
-    if(this.x > o.x) return -1;
-    else if (this.x < o.x) return 1;
-    else return o.y - this.y;
+    if(this.x > o.x) return -1; //asc
+    else if (this.x < o.x) return 1; //asc
+
+    else return o.y - this.y; //asc
   }
 }
 
