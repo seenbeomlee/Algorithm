@@ -24,10 +24,11 @@ int main() {
 
   vector<string> s_list;
 
-  //char* temp;
-  string s_new;
+  char* temp = new char[51];
   for(int i = 0; i < N; i++) {
-    cin >> s_new;
+    scanf("%s", temp);
+      
+    string s_new(temp);
 
     bool is = false;
     for(int j = 0; j < s_list.size(); j++) {
