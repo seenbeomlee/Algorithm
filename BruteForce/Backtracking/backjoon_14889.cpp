@@ -30,8 +30,12 @@ void findMin(int** board, vector<int> A) {
     }
   }
 
+  // cout << "B: ";
+  // for(int i = 0; i < N / 2; i++) cout << B[i];
+  // cout << endl;
+
   for(int i = 0; i < A.size() - 1; i++) {
-    for(int j = i; j < N; j++) {
+    for(int j = i; j < A.size(); j++) {
       totalA = totalA + board[A[i]][A[j]] + board[A[j]][A[i]];
       totalB = totalB + board[B[i]][B[j]] + board[B[j]][B[i]];
     }
@@ -42,13 +46,17 @@ void findMin(int** board, vector<int> A) {
 
 void find(int** board, vector<int> A) {
   if(A.size() == N / 2) {
-    //for(int i = 0; i < N / 2; i++) cout << A[i] << endl;
+
+    // cout << "A: ";
+    // for(int i = 0; i < N / 2; i++) cout << A[i];
+    // cout << endl;
+
     findMin(board, A);
 
     return;
   }
 
-  for(int i = A[0] + 1; i < N; i++) {
+  for(int i = A[A.size()-1] + 1; i < N; i++) {
     A.push_back(i);
     find(board, A);
     A.pop_back();
@@ -60,7 +68,7 @@ int main() {
 
   int** board = new int*[N];
   for(int i = 0; i < N; i++) {
-    board[i] = new int[M];
+    board[i] = new int[N];
   }
 
   for(int i = 0 ; i < N; i++) {
@@ -70,7 +78,7 @@ int main() {
   }
 
   vector<int> A;
-  for(int i = 0; i < N; i++) {
+  for(int i = 0; i < N - 1; i++) {
     A.push_back(i);
     find(board, A);
     A.pop_back();
