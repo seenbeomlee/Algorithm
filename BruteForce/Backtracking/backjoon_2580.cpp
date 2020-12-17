@@ -79,66 +79,33 @@ void find(vector<vector<int>> board, vector<point> pList, int pIndex) {
 }
 
 vector<int> cal(vector<vector<int>> board, vector<point> pList, int pIndex) {
-    // pIndex++
-
-    // endPoint check
-
-    // row check
-    // col check
-    // square check
-    // if not possible -> return;
-    // possible array -> for loop
-
-    // i == pList[pIndex].y
-    // j == pList[pIndex].x
-    vector<int> rowList;
-    vector<int> colList;
-    vector<int> squareList;
-    vector<int> possibleList;
-    for (int j = 0; j < 9; j++) {
-        if (j == pList[pIndex].x || board[pList[pIndex].y][j] == 0) continue;
-        rowList.push_back(board[pList[pIndex].y][j]);
-    }
-    for (int i = 0; i < 9; i++) {
-        if (i == pList[pIndex].y || board[i][pList[pIndex].x] == 0) continue;
-        colList.push_back(board[i][pList[pIndex].x]);
-    }
-
-    // 012 345 678
-    // i == pList[pIndex].y % 3 * 3
+    vector<int> list;
     int rowIndex = pList[pIndex].y / 3 * 3;
     int colIndex = pList[pIndex].x / 3 * 3;
-    for (int i = rowIndex; i < rowIndex + 3; i++) {
-        for (int j = colIndex; j < colIndex + 3; j++) {
-            if ((i == pList[pIndex].y && j == pList[pIndex].x) || board[i][j] == 0) continue;
-            squareList.push_back(board[i][j]);
-        }
-    }
-
     for (int i = 1; i <= 9; i++) {
         bool is = false;
-        for (int j = 0; j < rowList.size(); j++) {
-            if (i == rowList[j]) {
+        for (int j = 0; j < 9; j++) {
+            if (board[pList[pIndex].y][j] == i) {
                 is = true;
                 break;
             }
-        }
-        if (!is) possibleList.push_back(i);
-    }
+        } if (is) continue;
+        for (int j = 0; j < 9; j++) {
+            if (board[j][pList[pIndex].x] == i) {
+                is = true;
+                break;
+            }
+        } if (is) continue;
+        for (int j = rowIndex; j < rowIndex + 3; j++) {
+            for (int k = colIndex; k < colIndex + 3; k++) {
+                if (board[j][k] == i) {
+                    is = true;
+                    break;
+                }
+            }
+        } if (is) continue;
 
-    for (int i = 0; i < possibleList.size(); i++) {
-        for (int j = 0; j < colList.size(); j++) {
-            if (possibleList[i] == colList[j]) possibleList[i] = 0;
-        }
-        for (int j = 0; j < squareList.size(); j++) {
-            if (possibleList[i] == squareList[j]) possibleList[i] = 0;
-        }
+        list.push_back(i);
     }
-
-    vector<int> list;
-    for (int i = 0; i < possibleList.size(); i++) {
-        if (possibleList[i] != 0) list.push_back(possibleList[i]);
-    }
-
     return list;
 }
