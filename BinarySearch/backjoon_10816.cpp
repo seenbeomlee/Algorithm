@@ -1,4 +1,7 @@
-#include <cstdio>
+// 6 3 2 10 10 10 -10 -10 7 3
+// 여기서 10의 개수를 알고싶다? -> upper_bound(10) - lower_bound(10)을 하면 O(NlogN)의 시간 복잡도를 갖는다.
+
+#include <cstdio> // printf, scanf
 
 #include <iostream>
 #include <string>
@@ -12,39 +15,6 @@ using namespace std;
 
 long long res;
 
-void binaryLogic(vector<long long> inputList, long long check, long long s, long long e) {
-  long long middle = (e + s) / 2;
-
-  if(s > e) { // end-point
-    //cout << "check1: " << check << endl;
-    if(inputList[s] == check) res++;
-    return;
-  }
-
-  if(inputList[middle] == check) {
-    //cout << "check2: " << check << endl;
-    res++;
-    //left
-    long long idx = middle - 1;
-    while(1) {
-      if(idx < 0 || inputList[idx] != check) break;
-      res++;
-      idx--;
-    }
-    //right
-    idx = middle + 1;
-    while(1) {
-      if(idx >= inputList.size() || inputList[idx] != check) break;
-      res++;
-      idx++;
-    }
-  } else if (inputList[middle] > check) {
-    binaryLogic(inputList, check, s, middle - 1);
-  } else {
-    binaryLogic(inputList, check, middle + 1, e);
-  }
-}
-
 int main() {
   long long N, M;
   long long temp;
@@ -55,20 +25,22 @@ int main() {
     scanf("%lld", &temp);
     inputList.push_back(temp);
   }
-
-  scanf("%lld", &M);
-  vector<long long> checkList;
-  for(int i = 0; i < M; i++) {
-    scanf("%lld", &temp);
-    checkList.push_back(temp);
-  }
-
   sort(inputList.begin(), inputList.end());
 
-  //binarySearch Logic
+  scanf("%lld", &M);
   for(int i = 0; i < M; i++) {
     res = 0;
-    binaryLogic(inputList, checkList[i], 0, M - 1);
+    scanf("%lld", &temp);
+
+    vector<long long>::iterator lower_iter = lower_bound(inputList.begin(), inputList.end(), temp);
+    vector<long long>::iterator upper_iter = upper_bound(inputList.begin(), inputList.end(), temp);
+
+    //cout << "lower_iter: " << *lower_iter << endl;
+    //cout << "upper_iter: " << *upper_iter << endl;
+
+    if(*lower_iter != temp) res = 0;
+    else res = upper_iter - lower_iter;
+    
     printf("%lld ", res);
   }
 }
