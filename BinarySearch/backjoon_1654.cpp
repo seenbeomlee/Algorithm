@@ -6,7 +6,7 @@
 #include <set>
 
 #include <algorithm> // sort
-#include <cmath> // floor
+#include <cmath>     // floor
 
 using namespace std;
 // K  N
@@ -18,55 +18,72 @@ using namespace std;
 
 // 200  --> 11개
 int K, N;
+long long answer = 0;
+vector<long long> list;
 
-int main() {
+void find(long long start, long long end)
+{
+  if (start > end)
+  {
+    printf("%lld", answer);
+    return;
+  }
+
+  long long middle = (end + start) / 2;
+
+  long long length = middle;
+  int res = 0;
+  for (int j = 0; j < K; j++)
+  {
+    res = res + (list[j] / length);
+  }
+
+  if (res >= N)
+  {
+    answer = max(answer, length);
+    find(middle + 1, end);
+  }
+  else
+  {
+    find(start, middle - 1);
+  }
+}
+
+int main()
+{
   scanf("%d %d", &K, &N);
-  vector<long long> list;
 
   long long input;
-  for(int i = 0; i < K; i++) {
+  for (int i = 0; i < K; i++)
+  {
     scanf("%lld", &input);
     list.push_back(input);
   }
 
   sort(list.begin(), list.end());
-  long long i = 0;
   bool is = false;
-  for(i = K-1; i >= 0; i--) {
+  for (long long i = K - 1; i >= 0; i--) // check if answer is between given list[i]
+  {
     // length == list[i] -> check
     long long length = list[i];
     int res = 0;
-    for(int j = 0; j < K; j++) {
+    for (int j = 0; j < K; j++)
+    {
       res = res + (list[j] / length);
     }
 
-    if(res >= N) {
+    if (res >= N)
+    {
       is = true;
 
-      long long j;
-      for(j = list[i]; ; j++) {
-        int temp = 0;
-        for(int k = 0; k < K; k++) {
-          temp = temp + (list[k] / j);
-        }
-        if(temp < N) break;
-      }
-      printf("%lld", j - 1);
+      answer = max(answer, length);
+      find(list[i], list[i + 1] - 1);
       break;
     }
   }
 
-  if(!is) {
-    for(i = list[0]-1; i > 0; i--) {
-      int res = 0;
-      for(int j = 0; j < K; j++) {
-        res = res + (list[j] / i);
-      }
-
-      if(res >= N) {
-        printf("%lld", i);
-        break;
-      }
-    }
+  if (!is) // if not, search length '1' to length 'list[0] -1'
+  {
+    find(1, list[0] - 1);
   }
 }
