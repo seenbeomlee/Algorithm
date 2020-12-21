@@ -38,28 +38,20 @@ int main()
         {
             scanf("%d", &input);
 
-            if (input <= max_pq.top()) max_pq.push(input);
-            else if (input >= min_pq.top()) min_pq.push(input); 
-            else {
-                if (max_pq.size() == min_pq.size()) max_pq.push(input);
-                else max_pq.size() > min_pq.size() ?
-                    min_pq.push(input) : max_pq.push(input);
-            }
+            if (max_pq.size() > min_pq.size()) min_pq.push(input);
+            else max_pq.push(input);
 
-            //cout << "min_pq.size(): " << min_pq.size() << endl;
-            //cout << "max_pq.size(): " << max_pq.size() << endl;
-            //cout << "min_pq.size() - max_pq.size(): " << (min_pq.size()) - (max_pq.size()) << endl;
-            //cout << "min_pq.size() - max_pq.size(): " << (int)min_pq.size() - (int)max_pq.size() << endl;
+            if (max_pq.top() > min_pq.top()) {
+                int from_max = max_pq.top();
+                int from_min = min_pq.top();
 
-
-            if ((int)min_pq.size() - (int)max_pq.size() > 0) {
-                max_pq.push(min_pq.top());
-                min_pq.pop();
-            }
-            else if ((int)max_pq.size() - (int)min_pq.size() > 1) {
-                min_pq.push(min_pq.top());
                 max_pq.pop();
+                max_pq.push(from_min);
+
+                min_pq.pop();
+                min_pq.push(from_max);
             }
+
             printf("%d\n", max_pq.top());
         }
     }
