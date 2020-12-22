@@ -102,7 +102,7 @@ int main()
 			visited_row.push_back(0);
 		}
 
-		reverse(board_row.begin(), board_row.end());
+		//reverse(board_row.begin(), board_row.end());
 
 		board.push_back(board_row);
 		visited.push_back(visited_row);
