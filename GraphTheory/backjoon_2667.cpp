@@ -83,9 +83,9 @@ int main()
 
 	vector<vector<int>> visited;
 	vector<vector<int>> board;
-	vector<int> inputList;
+	vector<string> inputList;
 	
-	int input;
+	string input;
 	for (int i = 0; i < N; i++) {
 		cin >> input;
 		inputList.push_back(input);
@@ -95,15 +95,9 @@ int main()
 		vector<int> board_row;
 		vector<int> visited_row;
 		for (int j = 0; j < N; j++) {
-			input = inputList[i] % 10;
-			inputList[i] /= 10;
-
-			board_row.push_back(input);
+			board_row.push_back(inputList[i][j] - '0');
 			visited_row.push_back(0);
 		}
-
-		//reverse(board_row.begin(), board_row.end());
-
 		board.push_back(board_row);
 		visited.push_back(visited_row);
 	}
