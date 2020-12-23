@@ -6,7 +6,9 @@
 // 3. dist1[i] != dist2[i] 면 최단 경로가 g-h를 거친다 (하지만, 최단 경로가 여러가지 일 경우 틀렸습니다)
 
 // sol2
-// 
+// g-h의 w에는 *2-1의 가중치(홀수)
+// 나머지 edge의 w에는 *2의 가중치(짝수)
+// dist[i] == 홀수면 g-h를 거친 것이다
 
 #include <cstdio>
 #include <iostream>
@@ -67,10 +69,6 @@ int main() {
 	int s, g, h;
 	int a, b, d;
 
-	int critical_from;
-	int critical_to;
-	int critical_value;
-
 	scanf("%d", &T);
 
 	for (int i = 0; i < T; i++) {
@@ -81,8 +79,7 @@ int main() {
 
 		edge_list = new vector<pii>[n+1]; // 0 is empty
 		visit_check = new bool[n + 1];
-		int* dist1 = new int[n + 1];
-		int* dist2 = new int[n + 1];
+		int* dist = new int[n + 1];
 
 		scanf("%d %d %d", &s, &g, &h);
 		// s == start
@@ -90,14 +87,13 @@ int main() {
 		for (int j = 0; j < m; j++) {
 			scanf("%d %d %d", &a, &b, &d);
 			if ( (a == g && b == h) || (a == h && b == g) ) {
-				critical_from = a;
-				critical_to = b;
-				critical_value = d;
+				d = d * 2 - 1;
 			}
 			else {
-				edge_list[a].push_back({ b, d });
-				edge_list[b].push_back({ a, d });
+				d = d * 2;
 			}
+			edge_list[a].push_back({ b, d });
+			edge_list[b].push_back({ a, d });
 		}
 
 		vector<int> candidate_list;
@@ -107,21 +103,11 @@ int main() {
 			candidate_list.push_back(candidate);
 		}
 
-		Dijkstra(dist1, n, s); // before
-
-		edge_list[critical_from].push_back({ critical_to, critical_value });
-		edge_list[critical_to].push_back({ critical_from, critical_value });
-		
-		Dijkstra(dist2, n, s); // after w
-		// after w-1
-
-		//for (int j = 0; j < n + 1; j++) cout << dist1[j] << " ";
-		//cout << endl;
-		//for (int j = 0; j < n + 1; j++) cout << dist2[j] << " ";
+		Dijkstra(dist, n, s);
 
 		vector<int> res_list;
 		for (int j = 0; j < candidate_list.size(); j++) {
-			if (dist1[candidate_list[j]] != dist2[candidate_list[j]]) res_list.push_back(candidate_list[j]);
+			if (dist[candidate_list[j]] % 2 == 1) res_list.push_back(candidate_list[j]);
 		}
 		sort(res_list.begin(), res_list.end());
 		for (int j = 0; j < res_list.size(); j++) printf("%d ", res_list[j]);
