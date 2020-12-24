@@ -17,7 +17,7 @@ int uclid_func(int p, int q) {
 int main() {
 	int N, K;
 	vector<int> list;
-	vector<string> res_list;
+	vector<long long> res_list;
 	long long res = 0;
 
 	scanf("%d", &N);
@@ -37,14 +37,15 @@ int main() {
 		for (int i = 0; i < list.size(); i++) {
 			now += to_string(list[i]);
 		}
-		res_list.push_back(now);
+		res_list.push_back(stoll(now));
 	} while (next_permutation(list.begin(), list.end()));
 
 	res_list.erase(unique(res_list.begin(), res_list.end()), res_list.end());
 
 	for (int i = 0; i < res_list.size(); i++) cout << res_list[i] << endl;
+
 	for (int i = 0; i < res_list.size(); i++) {
-		if (stoll(res_list[i]) % K == 0) {
+		if (res_list[i] % K == 0) {
 			res++;
 		}
 	}
